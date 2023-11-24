@@ -10,11 +10,11 @@ const PORT = 3000;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.get("/", (_req, res, _next) => {
+app.get("/", (_req, res) => {
     return res.render("home");
 });
 
-app.get("/sites", (_req, res, _next) => {
+app.get("/sites", (_req, res) => {
     return res.render("sites");
 });
 
