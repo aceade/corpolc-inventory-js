@@ -5,13 +5,19 @@ import http from 'http';
 import path from 'path';
 const server = http.createServer(app);
 
+const PORT = 3000;
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.get("/", (req, res, next) => {
+app.get("/", (_req, res, _next) => {
     return res.render("home");
 });
 
-server.listen(3000, () => {
-    console.log("Server online");
+app.get("/sites", (_req, res, _next) => {
+    return res.render("sites");
+});
+
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
