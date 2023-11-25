@@ -10,16 +10,41 @@
 
 <body>
     <%- include("navbar") %>
-    <main>
-        <section class="main">
-            <header>
-                <h1>Sites</h1>
-            </header>
-            <section>
-                
+        <main>
+            <section class="main">
+                <header>
+                    <h1>Sites</h1>
+                    <table>
+                        <tr>
+                            <th>Address</th>
+                            <th>Region</th>
+                            <th>Country</th>
+                            <th>Security Rating</th>
+                        </tr>
+                        <% sites.forEach((site)=> { %>
+                            <tr>
+                                <td>
+                                    <%= (site.address) %>
+                                </td>
+                                <td>
+                                    <%= (site.region) %>
+                                </td>
+                                <td>
+                                    <%= (site.region) %>
+                                </td>
+                                <td>
+                                    <%= (site.security_level) %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </table>
+
+                </header>
+                <section>
+
+                </section>
             </section>
-        </section>
-    </main>
+        </main>
 </body>
 
 </html>
