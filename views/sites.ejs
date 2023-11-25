@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Corpolc Site Directory</title>
     <link rel="stylesheet" href="/css/base.css">
+    <script>
+        "use strict";
+        function viewSite (id) {
+            console.info(id);
+            window.fetch(`/sites/${id}`);
+        }
+
+        function deleteSite (id) {
+            window.fetch(`/sites/${id}`, {
+                method: "DELETE"
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -20,6 +33,7 @@
                             <th>Region</th>
                             <th>Country</th>
                             <th>Security Rating</th>
+                            <th></th>
                         </tr>
                         <% sites.forEach((site)=> { %>
                             <tr>
@@ -35,8 +49,12 @@
                                 <td>
                                     <%= (site.security_level) %>
                                 </td>
+                                <td>
+                                    <button onclick="viewSite('<%= site.id %>')">View</button>
+                                    <button onclick="deleteSite('<%= site.id %>')">Delete</button>
+                                </td>
                             </tr>
-                        <% }); %>
+                            <% }); %>
                     </table>
 
                 </header>

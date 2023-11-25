@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Corpolc Site Directory</title>
+    <link rel="stylesheet" href="/css/base.css">
+</head>
+
+<body>
+    <%- include("navbar") %>
+        <main>
+            <section class="main">
+                <header>
+                    <h1>Site <%= site.id %></h1>
+                    <p>Security Level <%= (site.security_level) %></p>
+                    <p>
+                        <%= (site.address) %>
+                        <%= (site.region) %>
+                        <%= (site.country) %>
+                    </p>
+
+                </header>
+                <section>
+
+                </section>
+            </section>
+        </main>
+</body>
+
+</html>
