@@ -11,6 +11,7 @@ const PORT = 3000;
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
 app.get("/", (_req, res) => {
     res.render("home");
@@ -25,7 +26,6 @@ app.get("/sites/:id", (req, res) => {
     const id = Number.parseInt(req.params.id);
     const site = getSite(id);
     if (site) {
-        console.info("Loading site page", site);
         res.render("siteDetail", { site: site});
     } else {
         res.render("sites", { sites: getAllSites()} );
@@ -34,9 +34,10 @@ app.get("/sites/:id", (req, res) => {
 
 app.post("/sites", (req, res) => {
     const body = req.body;
-    addSite(body.newSite);
-    res.render("sites", {sites: getAllSites()});
-
+    if (addSite(body.newSite)) {
+        res.sendStatus(202);
+    };
+    
 });
 
 app.delete("/sites/:id", (req, res) => {
