@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="/css/base.css">
     <script>
         "use strict";
-        function viewSite (id) {
-            console.info(id);
-            window.fetch(`/sites/${id}`);
+        async function viewSite (id) {
+            window.location.href = `/sites/${id}`;
         }
 
-        function deleteSite (id) {
-            window.fetch(`/sites/${id}`, {
+        async function deleteSite (id) {
+            await window.fetch(`/sites/${id}`, {
                 method: "DELETE"
+            }).then(() => {
+                window.location.href = "/sites";
             });
         }
     </script>

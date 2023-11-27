@@ -9,7 +9,7 @@ export const getAllSites = () => {
 }
 
 export const getSite = (id: number) => {
-    const result = db.prepare("SELECT * FROM sites WHERE id = ?").run(id);
+    const result = db.prepare("SELECT * FROM sites WHERE id = ?").get(id);
     return result;
 }
 

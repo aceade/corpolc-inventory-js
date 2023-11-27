@@ -10,23 +10,23 @@
 
 <body>
     <%- include("navbar") %>
-        <main>
-            <section class="main">
-                <header>
-                    <h1>Site <%= site.id %></h1>
-                    <p>Security Level <%= (site.security_level) %></p>
-                    <p>
-                        <%= (site.address) %>
-                        <%= (site.region) %>
-                        <%= (site.country) %>
-                    </p>
+    <main>
+        <section class="main">
+            <header>
+                <h1>Site <%= site.id %></h1>
+                <p>Security Level <%= (site.security_level) %></p>
+                <p>
+                    <%= (site.address) %>
+                    <%= (site.region) %>
+                    <%= (site.country) %>
+                </p>
 
-                </header>
-                <section>
+            </header>
+            <section>
 
-                </section>
             </section>
-        </main>
+        </section>
+    </main>
 </body>
 
 </html>
