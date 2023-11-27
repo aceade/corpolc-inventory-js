@@ -8,16 +8,52 @@
     <link rel="stylesheet" href="/css/base.css">
     <script>
         "use strict";
-        async function viewSite (id) {
+
+        async function viewSite(id) {
             window.location.href = `/sites/${id}`;
         }
 
-        async function deleteSite (id) {
+        async function deleteSite(id) {
             await window.fetch(`/sites/${id}`, {
                 method: "DELETE"
             }).then(() => {
                 window.location.href = "/sites";
             });
+        }
+
+        async function addSite() {
+            await fetch("/sites", {
+                method: "POST",
+                body: JSON.stringify({
+                    newSite: {
+                        country: document.getElementById("country").value,
+                        region: document.getElementById("region").value,
+                        address: document.getElementById("address").value,
+                        security_level: Number.parseInt(document.getElementById("security_level").value)
+                    }
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then((response) => {
+                if (response.ok) {
+                    document.getElementById("addSiteStatus").textContent = "Site added";
+                } else {
+                    document.getElementById("addSiteStatus").textContent = "Could not add site";
+                }
+                setTimeout(() => {
+                    document.getElementById("addSiteStatus").textContent = "";
+                    document.getElementById("newSiteDialog").close();
+                }, 2000);
+            });
+        }
+
+        function showPanel() {
+            document.getElementById("newSiteDialog").showModal();
+        }
+
+        function closePanel() {
+            document.getElementById("newSiteDialog").close();
         }
     </script>
 </head>
@@ -25,45 +61,53 @@
 <body>
     <%- include("navbar") %>
         <main>
-            <section class="main">
-                <header>
-                    <h1>Sites</h1>
-                    <table>
-                        <tr>
-                            <th>Address</th>
-                            <th>Region</th>
-                            <th>Country</th>
-                            <th>Security Rating</th>
-                            <th></th>
-                        </tr>
-                        <% sites.forEach((site)=> { %>
-                            <tr>
-                                <td>
-                                    <%= (site.address) %>
-                                </td>
-                                <td>
-                                    <%= (site.region) %>
-                                </td>
-                                <td>
-                                    <%= (site.region) %>
-                                </td>
-                                <td>
-                                    <%= (site.security_level) %>
-                                </td>
-                                <td>
-                                    <button onclick="viewSite('<%= site.id %>')">View</button>
-                                    <button onclick="deleteSite('<%= site.id %>')">Delete</button>
-                                </td>
-                            </tr>
-                            <% }); %>
-                    </table>
-
-                </header>
-                <section>
-
-                </section>
-            </section>
+            <h1>Sites</h1>
+            <table>
+                <tr>
+                    <th>Address</th>
+                    <th>Region</th>
+                    <th>Country</th>
+                    <th>Security Rating</th>
+                    <th><button onclick="showPanel()">Create New</button></th>
+                </tr>
+                <% sites.forEach((site)=> { %>
+                    <tr>
+                        <td>
+                            <%= (site.address) %>
+                        </td>
+                        <td>
+                            <%= (site.region) %>
+                        </td>
+                        <td>
+                            <%= (site.region) %>
+                        </td>
+                        <td>
+                            <%= (site.security_level) %>
+                        </td>
+                        <td>
+                            <button onclick="viewSite('<%= site.id %>')">View</button>
+                            <button onclick="deleteSite('<%= site.id %>')">Delete</button>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </table>
         </main>
+        <dialog id="newSiteDialog">
+            <button onclick="closePanel()">X</button>
+            <h2>Add site details</h2>
+            <div>
+                <label for="country">Country</label>
+                <input id="country">
+                <label for="region">Region</label>
+                <input id="region">
+                <label for="address">Street Address</label>
+                <input id="address">
+                <label for="security_level">Security Level</label>
+                <input id="security_level" type="number" value="1" min="1" max="7">
+                <button onclick="addSite()">Add</button>
+                <p id="addSiteStatus"></p>
+            </div>
+        </dialog>
 </body>
 
 </html>

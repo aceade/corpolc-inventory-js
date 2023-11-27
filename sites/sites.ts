@@ -14,7 +14,6 @@ export const getSite = (id: number) => {
 }
 
 export const addSite = (newSite: Site) => {
-    
     const statement = db.prepare("INSERT INTO sites (country, region, address, security_level) VALUES(?,?,?,?)").run(newSite.country, newSite.region, newSite.address, newSite.security_level);
     return statement.changes > 0;
 }
