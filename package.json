@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "pnpm run lint && tsc",
     "dev": "ts-node app.ts --host",
-    "lint": "eslint ."
+    "lint": "eslint **/*.ts"
   },
   "keywords": [],
   "author": "",
