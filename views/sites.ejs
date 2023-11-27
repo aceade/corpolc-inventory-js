@@ -6,20 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Corpolc Site Directory</title>
     <link rel="stylesheet" href="/css/base.css">
+    <script>
+        "use strict";
+        async function viewSite (id) {
+            window.location.href = `/sites/${id}`;
+        }
+
+        async function deleteSite (id) {
+            await window.fetch(`/sites/${id}`, {
+                method: "DELETE"
+            }).then(() => {
+                window.location.href = "/sites";
+            });
+        }
+    </script>
 </head>
 
 <body>
     <%- include("navbar") %>
-    <main>
-        <section class="main">
-            <header>
-                <h1>Sites</h1>
-            </header>
-            <section>
-                
+        <main>
+            <section class="main">
+                <header>
+                    <h1>Sites</h1>
+                    <table>
+                        <tr>
+                            <th>Address</th>
+                            <th>Region</th>
+                            <th>Country</th>
+                            <th>Security Rating</th>
+                            <th></th>
+                        </tr>
+                        <% sites.forEach((site)=> { %>
+                            <tr>
+                                <td>
+                                    <%= (site.address) %>
+                                </td>
+                                <td>
+                                    <%= (site.region) %>
+                                </td>
+                                <td>
+                                    <%= (site.region) %>
+                                </td>
+                                <td>
+                                    <%= (site.security_level) %>
+                                </td>
+                                <td>
+                                    <button onclick="viewSite('<%= site.id %>')">View</button>
+                                    <button onclick="deleteSite('<%= site.id %>')">Delete</button>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </table>
+
+                </header>
+                <section>
+
+                </section>
             </section>
-        </section>
-    </main>
+        </main>
 </body>
 
 </html>
